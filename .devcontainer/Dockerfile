@@ -27,7 +27,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     tmux \
     zsh \
     git-flow \
-    curl
+    curl \
+    libyaml
 
 ## Install node
 ENV NODE_VERSION=20.8.0
