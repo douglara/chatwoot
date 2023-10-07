@@ -26,10 +26,19 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     imagemagick \
     tmux \
     zsh \
-    git-flow
+    git-flow \
+    curl
 
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs
+## Install node
+ENV NODE_VERSION=16.13.0
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+ENV NVM_DIR=/root/.nvm
+RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
+ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+RUN node --version
+RUN npm --version
 
 # Install rbenv and ruby
 ARG RUBY_VERSION="3.2.2"
