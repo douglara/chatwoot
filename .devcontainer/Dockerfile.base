@@ -26,8 +26,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     imagemagick \
     tmux \
     zsh \
-    git-flow \
-    npm
+    git-flow
+
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
 # Install rbenv and ruby
 ARG RUBY_VERSION="3.2.2"
