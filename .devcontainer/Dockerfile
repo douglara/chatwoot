@@ -1,6 +1,6 @@
 
-ARG VARIANT=ubuntu-20.04
-FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
+ARG VARIANT=ubuntu-22.04
+FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04
 
 # Update args in docker-compose.yaml to set the UID/GID of the "vscode" user.
 ARG USER_UID=1000
