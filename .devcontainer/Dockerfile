@@ -28,7 +28,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     zsh \
     git-flow \
     curl \
-    libyaml
+    libyaml-dev
 
 ## Install node
 ENV NODE_VERSION=20.8.0
