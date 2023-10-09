@@ -11,8 +11,7 @@ RUN if [ "$USER_GID" != "1000" ] || [ "$USER_UID" != "1000" ]; then \
         && chmod -R $USER_UID:$USER_GID /home/vscode; \
     fi
 
-
-RUN chmod +x /chatwoot/.devcontainer/scripts/setup.sh
+RUN chmod +x .devcontainer/scripts/setup.sh
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   && apt-get -y install --no-install-recommends \
