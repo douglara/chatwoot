@@ -11,8 +11,6 @@ RUN if [ "$USER_GID" != "1000" ] || [ "$USER_UID" != "1000" ]; then \
         && chmod -R $USER_UID:$USER_GID /home/vscode; \
     fi
 
-RUN chmod +x .devcontainer/scripts/setup.sh
-
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   && apt-get -y install --no-install-recommends \
     build-essential \
@@ -73,6 +71,9 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | s
 # Do the set up required for chatwoot app 
 WORKDIR /workspace
 COPY . /workspace
+
+RUN ls
+RUN chmod +x .devcontainer/scripts/setup.sh
 
 # set up ruby
 COPY Gemfile Gemfile.lock ./
