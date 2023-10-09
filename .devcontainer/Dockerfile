@@ -1,6 +1,6 @@
 
 ARG VARIANT=ubuntu-22.04
-FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04
+FROM mcr.microsoft.com/devcontainers/universal:2
 
 # Update args in docker-compose.yaml to set the UID/GID of the "vscode" user.
 ARG USER_UID=1000
@@ -30,29 +30,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     curl \
     libyaml-dev
 
-## Install node
-ENV NODE_VERSION=20.8.0
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-ENV NVM_DIR=/root/.nvm
-RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
-RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
-RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
-ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
-RUN node --version
-RUN npm --version
-
-# Install rbenv and ruby
-ARG RUBY_VERSION="3.2.2"
-RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
-    &&  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc \
-    &&  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-ENV PATH "/root/.rbenv/bin/:/root/.rbenv/shims/:$PATH"
-RUN git clone https://github.com/rbenv/ruby-build.git && \
-    PREFIX=/usr/local ./ruby-build/install.sh
-
-RUN rbenv install $RUBY_VERSION && \
-    rbenv global $RUBY_VERSION && \
-    rbenv versions
 
 # Install overmind
 RUN curl -L https://github.com/DarthSim/overmind/releases/download/v2.1.0/overmind-v2.1.0-linux-amd64.gz > overmind.gz \
@@ -71,9 +48,6 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | s
 # Do the set up required for chatwoot app 
 WORKDIR /workspace
 COPY . /workspace
-
-RUN ls
-RUN chmod +x .devcontainer/scripts/setup.sh
 
 # set up ruby
 COPY Gemfile Gemfile.lock ./

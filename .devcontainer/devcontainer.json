@@ -24,8 +24,8 @@
   // 6379 redis
   // 1025,8025 mailhog
   "forwardPorts": [8025, 3000, 3035],
-
-  "postCreateCommand": ".devcontainer/scripts/setup.sh",
+  "updateContentCommand": "bundle install",
+  "postCreateCommand": "",
   "portsAttributes": {
     "3000": {
       "label": "Rails Server"
